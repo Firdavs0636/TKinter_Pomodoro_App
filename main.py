@@ -24,13 +24,13 @@ pygame.mixer.init()
 
 def play(key):
     if key == 'short':
-        pygame.mixer.music.load('mixkit-bike-magical-bell-591.wav')
+        pygame.mixer.music.load('short_break.wav')
         pygame.mixer.music.play(loops=0)
     elif key == 'long':
-        pygame.mixer.music.load('mixkit-bell-sound-with-delay-585.wav')
+        pygame.mixer.music.load('long_break.wav')
         pygame.mixer.music.play(loops=0)
     elif key == 'work':
-        pygame.mixer.music.load('tick-tock-timer-1046.wav')
+        pygame.mixer.music.load('clock_countdown.wav')
         pygame.mixer.music.play(loops=32)
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -90,6 +90,19 @@ window = Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
 
+# List
+sound_list = Listbox(height=3, bg=YELLOW, highlightthickness=0, borderwidth=0)
+sounds = ['Birds', 'Countdown']
+for item in sounds:
+    sound_list.insert(sounds.index(item), item)
+sound_list.bind('<<ListboxSelect>>', sound_list)
+sound_list.grid(column=2, row=0)
+
+
+def list_box_event():
+    pygame.mixer.music.load('birds_sound.mp3')
+    pygame.mixer.music.play(loops=32)
+
 # Labels
 title_label = Label(text='Timer', bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
 title_label.grid(column=1, row=0)
@@ -99,12 +112,13 @@ tick_label = Label(bg=YELLOW, fg=GREEN, font=22)
 tick_label.grid(column=1, row=3)
 
 # Buttons
-start_bt = Button(text='Start', highlightthickness=0, bg=YELLOW, command=start_timer)
+start_bt = Button(text='Start', bg=YELLOW, command=start_timer)
 start_bt.grid(column=0, row=2)
 
 reset_bt = Button(text='Reset', highlightthickness=0, bg='white', command=reset)
 reset_bt.grid(column=2, row=2)
 
+# Canvas for picture
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_img = PhotoImage(file='tomato.png')
 canvas.create_image(100, 112, image=tomato_img)
