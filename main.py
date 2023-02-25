@@ -1,6 +1,7 @@
 from tkinter import *
 from math import floor
 import pygame.mixer
+import os
 
 # ---------------------------- CONSTANTS ------------------------------- #
 
@@ -17,25 +18,10 @@ SECOND = 1000
 reps = 0
 ticks = ''
 timer = None
-
-# ---------------------------- PLAY SOUND ------------------------------- #
 pygame.mixer.init()
 
 
-def play(key):
-    if key == 'short':
-        pygame.mixer.music.load('short_break.wav')
-        pygame.mixer.music.play(loops=0)
-    elif key == 'long':
-        pygame.mixer.music.load('long_break.wav')
-        pygame.mixer.music.play(loops=0)
-    elif key == 'work':
-        pygame.mixer.music.load('clock_countdown.wav')
-        pygame.mixer.music.play(loops=32)
-
 # ---------------------------- TIMER RESET ------------------------------- #
-
-
 def reset():
     global reps
     window.after_cancel(timer)
@@ -43,6 +29,9 @@ def reset():
     title_label.config(text='Timer', fg=GREEN)
     tick_label.config(text=ticks)
     reps = 0
+    pygame.mixer.music.stop()
+
+
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 
 
@@ -55,15 +44,23 @@ def start_timer():
     if reps % 8 == 0:
         countdown(long_break)
         title_label.config(text='BREAK', fg=RED)
-        play('long')
+
+        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/long_break.wav')
+        pygame.mixer.music.play(loops=0)
+
     elif reps % 2 == 0:
         countdown(short_break)
         title_label.config(text='BREAK', fg=PINK)
-        play('short')
+
+        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/short_break.wav')
+        pygame.mixer.music.play(loops=0)
+
     else:
         countdown(work_sec)
         title_label.config(text='WORK', fg=GREEN)
-        play('work')
+
+        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds/birds_sound.mp3')
+        pygame.mixer.music.play(loops=32)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -90,23 +87,28 @@ window = Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
 
-# List
+
+# Formatting Sound List
+def list_box_event(event):
+    name = sound_list.get(sound_list.curselection())
+    pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds/' + name)
+    pygame.mixer.music.play(loops=32)
+
+
 sound_list = Listbox(height=3, bg=YELLOW, highlightthickness=0, borderwidth=0)
-sounds = ['Birds', 'Countdown']
-for item in sounds:
-    sound_list.insert(sounds.index(item), item)
-sound_list.bind('<<ListboxSelect>>', sound_list)
+sound_list.bind('<<ListboxSelect>>', list_box_event)
 sound_list.grid(column=2, row=0)
 
-
-def list_box_event():
-    pygame.mixer.music.load('birds_sound.mp3')
-    pygame.mixer.music.play(loops=32)
+# Takes all files from a given directory
+os.chdir("/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds")
+song_tracks = os.listdir()
+# Loops through all files and inserts to a list
+for track in song_tracks:
+    sound_list.insert(END, track)
 
 # Labels
 title_label = Label(text='Timer', bg=YELLOW, fg=GREEN, font=(FONT_NAME, 50))
 title_label.grid(column=1, row=0)
-
 
 tick_label = Label(bg=YELLOW, fg=GREEN, font=22)
 tick_label.grid(column=1, row=3)
@@ -120,7 +122,7 @@ reset_bt.grid(column=2, row=2)
 
 # Canvas for picture
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file='tomato.png')
+tomato_img = PhotoImage(file='/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Pic/tomato.png')
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(100, 130, text='00:00', fill='white', font=(FONT_NAME, 35, 'bold'))
 canvas.grid(column=1, row=1)
