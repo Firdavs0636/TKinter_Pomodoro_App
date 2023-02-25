@@ -4,8 +4,6 @@ import pygame.mixer
 import os
 
 # ---------------------------- CONSTANTS ------------------------------- #
-
-
 PINK = "#e2979c"
 RED = "#e7305b"
 GREEN = "#9bdeac"
@@ -33,8 +31,6 @@ def reset():
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
-
-
 def start_timer():
     global reps
     reps += 1
@@ -95,13 +91,14 @@ def list_box_event(event):
     pygame.mixer.music.play(loops=32)
 
 
-sound_list = Listbox(height=3, bg=YELLOW, highlightthickness=0, borderwidth=0)
+sound_list = Listbox(height=3, width=12, bg=YELLOW, highlightthickness=0, borderwidth=0, selectbackground=PINK, font=(FONT_NAME, 11, 'italic'), relief=GROOVE)
 sound_list.bind('<<ListboxSelect>>', list_box_event)
 sound_list.grid(column=2, row=0)
 
 # Takes all files from a given directory
 os.chdir("/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds")
 song_tracks = os.listdir()
+
 # Loops through all files and inserts to a list
 for track in song_tracks:
     sound_list.insert(END, track)
