@@ -3,6 +3,9 @@ from math import floor
 import pygame.mixer
 import os
 
+# Initializes pyGame module
+pygame.mixer.init()
+
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -16,7 +19,6 @@ SECOND = 1000
 reps = 0
 ticks = ''
 timer = None
-pygame.mixer.init()
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -111,7 +113,7 @@ tick_label = Label(bg=YELLOW, fg=GREEN, font=22)
 tick_label.grid(column=1, row=3)
 
 # Buttons
-start_bt = Button(text='Start', bg=YELLOW, command=start_timer)
+start_bt = Button(text='Start', highlightthickness=0, bg=YELLOW, command=start_timer)
 start_bt.grid(column=0, row=2)
 
 reset_bt = Button(text='Reset', highlightthickness=0, bg='white', command=reset)
