@@ -33,7 +33,7 @@ def reset():
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
-def start_timer():
+def start_timer(e):
     global reps
     reps += 1
     work_sec = WORK_MIN * 60
@@ -42,21 +42,21 @@ def start_timer():
     if reps % 8 == 0:
         countdown(long_break)
         title_label.config(text='BREAK', fg=RED)
-
+        # Plays short break sound
         pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/long_break.wav')
         pygame.mixer.music.play(loops=0)
 
     elif reps % 2 == 0:
         countdown(short_break)
         title_label.config(text='BREAK', fg=PINK)
-
+        # Plays long break sound
         pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/short_break.wav')
         pygame.mixer.music.play(loops=0)
 
     else:
         countdown(work_sec)
         title_label.config(text='WORK', fg=GREEN)
-
+        # Plays work sound
         pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds/birds_sound.mp3')
         pygame.mixer.music.play(loops=32)
 
