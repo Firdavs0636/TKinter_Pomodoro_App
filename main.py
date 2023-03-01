@@ -16,9 +16,6 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 15
 SECOND = 1000
-reps = 0
-ticks = ''
-timer = None
 
 
 # ---------------------------- TIMER RESET ------------------------------- #
@@ -33,7 +30,7 @@ def reset():
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
-def start_timer(e):
+def start_timer():
     global reps
     reps += 1
     work_sec = WORK_MIN * 60
@@ -62,6 +59,10 @@ def start_timer(e):
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+reps = 0
+ticks = ''
+timer = None
+
 def countdown(remainder):
     global ticks
     global timer
