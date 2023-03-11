@@ -40,21 +40,21 @@ def start_timer():
         countdown(long_break)
         title_label.config(text='BREAK', fg=RED)
         # Plays short break sound
-        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/long_break.wav')
+        pygame.mixer.music.load('./Break_sounds/long_break.wav')
         pygame.mixer.music.play(loops=0)
 
     elif reps % 2 == 0:
         countdown(short_break)
         title_label.config(text='BREAK', fg=PINK)
         # Plays long break sound
-        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Break_sounds/short_break.wav')
+        pygame.mixer.music.load('./Break_sounds/short_break.wav')
         pygame.mixer.music.play(loops=0)
 
     else:
         countdown(work_sec)
         title_label.config(text='WORK', fg=GREEN)
         # Plays work sound
-        pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds/birds_sound.mp3')
+        pygame.mixer.music.load('./Sounds/birds_sound.mp3')
         pygame.mixer.music.play(loops=32)
 
 
@@ -90,16 +90,17 @@ window.config(padx=100, pady=50, bg=YELLOW)
 # Formatting Sound List
 def list_box_event(event):
     name = sound_list.get(sound_list.curselection())
-    pygame.mixer.music.load('/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds/' + name)
+    pygame.mixer.music.load('./Sounds/' + name)
     pygame.mixer.music.play(loops=32)
 
 
-sound_list = Listbox(height=3, width=12, bg=YELLOW, highlightthickness=0, borderwidth=0, selectbackground=PINK, font=(FONT_NAME, 11, 'italic'), relief=GROOVE)
+sound_list = Listbox(height=3, width=12, bg=YELLOW, highlightthickness=0, borderwidth=0, selectbackground=PINK, font=(FONT_NAME, 11, 'italic'), 
+                     relief=GROOVE)
 sound_list.bind('<<ListboxSelect>>', list_box_event)
 sound_list.grid(column=2, row=0)
 
 # Takes all files from a given directory
-os.chdir("/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Sounds")
+os.chdir("./Sounds")
 song_tracks = os.listdir()
 
 # Loops through all files and inserts to a list
@@ -122,7 +123,7 @@ reset_bt.grid(column=2, row=2)
 
 # Canvas for picture
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
-tomato_img = PhotoImage(file='/Users/admin/PycharmProjects/TKinter_Pomodoro_App/Pic/tomato.png')
+tomato_img = PhotoImage(file='./Pic/tomato.png')
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(100, 130, text='00:00', fill='white', font=(FONT_NAME, 35, 'bold'))
 canvas.grid(column=1, row=1)
